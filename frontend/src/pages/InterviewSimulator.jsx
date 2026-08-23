@@ -185,6 +185,16 @@ function SummaryItem({ label, value }) {
 ========================================================= */
 
 export default function InterviewSimulator() {
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== "undefined" && window.innerWidth <= 768
+  );
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const [stage, setStage] = useState("setup");
 
   const [config, setConfig] = useState({
@@ -433,10 +443,11 @@ export default function InterviewSimulator() {
         <div
           style={{
             flex: 1,
-            marginLeft: "256px",
+            marginLeft: isMobile ? "0" : "256px",
             display: "flex",
             flexDirection: "column",
             minWidth: 0,
+            transition: "margin-left 0.3s ease",
           }}
         >
           <Navbar title="AI Interview" />
@@ -444,7 +455,7 @@ export default function InterviewSimulator() {
           <main
             style={{
               flex: 1,
-              padding: "38px 42px 60px",
+              padding: isMobile ? "20px 16px 40px" : "38px 42px 60px",
             }}
           >
             <div
@@ -536,14 +547,12 @@ export default function InterviewSimulator() {
               >
                 <div
                   style={{
-                    padding: "32px",
-
+                    padding: isMobile ? "20px 16px" : "32px",
                     display: "grid",
-
-                    gridTemplateColumns:
-                      "minmax(0,1.65fr) minmax(280px,0.75fr)",
-
-                    gap: "36px",
+                    gridTemplateColumns: isMobile
+                      ? "1fr"
+                      : "minmax(0,1.65fr) minmax(280px,0.75fr)",
+                    gap: "28px",
                   }}
                 >
                   {/* ================= LEFT ================= */}
@@ -1117,9 +1126,10 @@ export default function InterviewSimulator() {
         <div
           style={{
             flex: 1,
-            marginLeft: "256px",
+            marginLeft: isMobile ? "0" : "256px",
             display: "flex",
             flexDirection: "column",
+            transition: "margin-left 0.3s ease",
           }}
         >
           <Navbar title="AI Interview" />
@@ -1506,12 +1516,11 @@ export default function InterviewSimulator() {
       <div
         style={{
           flex: 1,
-          marginLeft: "256px",
-
+          marginLeft: isMobile ? "0" : "256px",
           display: "flex",
           flexDirection: "column",
-
           height: "100vh",
+          transition: "margin-left 0.3s ease",
         }}
       >
         {/* TOP BAR */}
@@ -1526,7 +1535,7 @@ export default function InterviewSimulator() {
 
             justifyContent: "space-between",
 
-            padding: "0 32px",
+            padding: isMobile ? "0 16px 0 88px" : "0 32px",
 
             background: "rgba(13,13,28,0.95)",
 

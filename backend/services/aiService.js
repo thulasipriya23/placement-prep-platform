@@ -7,7 +7,7 @@ const groq = new Groq({
 const askGroq = async (prompt) => {
   try {
     const completion = await groq.chat.completions.create({
-      model: "llama-3.3-70b-versatile",
+      model: "groq/compound-mini",
       messages: [
         {
           role: "user",
@@ -15,7 +15,7 @@ const askGroq = async (prompt) => {
         },
       ],
       temperature: 0.7,
-      max_tokens: 4096,
+      max_tokens: 2048,
     });
 
     return completion.choices[0].message.content;

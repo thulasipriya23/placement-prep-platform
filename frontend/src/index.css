@@ -495,3 +495,84 @@ select.input-field {
   background: rgba(99, 102, 241, 0.35);
   color: #ffffff;
 }
+
+/* =========================================================
+   RESPONSIVE UTILITIES & SYSTEM BREAKPOINTS
+========================================================= */
+
+/* Prevent horizontal page scroll blowout */
+#root, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Responsive Table Scroll Container */
+.table-responsive-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 12px;
+}
+
+/* Text Truncation Safety */
+.text-truncate-safe {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Flex Wrap Helper */
+.flex-wrap-responsive {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Tablet Media Queries (<= 1024px) */
+@media (max-width: 1024px) {
+  :root {
+    --text-3xl: 26px;
+    --text-2xl: 22px;
+    --text-xl: 18px;
+  }
+}
+
+/* Mobile Portrait & Small Tablet (<= 768px) */
+@media (max-width: 768px) {
+  :root {
+    --text-3xl: 22px;
+    --text-2xl: 19px;
+    --text-xl: 16px;
+    --text-base: 14px;
+  }
+
+  .btn-primary {
+    padding: 11px 18px;
+    font-size: 14px;
+  }
+
+  .input-field {
+    padding: 11px 14px;
+    font-size: 14px;
+  }
+}
+
+/* Small Smartphone (<= 480px) */
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+
+  .btn-primary {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Micro Smartphone (<= 360px) */
+@media (max-width: 360px) {
+  :root {
+    --text-3xl: 20px;
+    --text-2xl: 18px;
+  }
+}

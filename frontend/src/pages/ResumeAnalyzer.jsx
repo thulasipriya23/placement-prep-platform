@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import API from "../services/api";
@@ -194,9 +194,18 @@ export default function ResumeAnalyzer() {
   const [file, setFile] = useState(null);
   const [dragging, setDragging] = useState(false);
   const [loading, setLoading] = useState(false);
-
   const [result, setResult] = useState(null);
   const [error, setError] = useState("");
+
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== "undefined" && window.innerWidth <= 768
+  );
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const [analysisType, setAnalysisType] =
     useState("general");
@@ -400,6 +409,8 @@ export default function ResumeAnalyzer() {
      PAGE
   ========================================================= */
 
+
+
   return (
     <div
       style={{
@@ -413,10 +424,11 @@ export default function ResumeAnalyzer() {
       <div
         style={{
           flex: 1,
-          marginLeft: "256px",
+          marginLeft: isMobile ? "0" : "256px",
           display: "flex",
           flexDirection: "column",
           minWidth: 0,
+          transition: "margin-left 0.3s ease",
         }}
       >
         <Navbar title="Resume Analyzer" />
@@ -424,7 +436,7 @@ export default function ResumeAnalyzer() {
         <main
           style={{
             flex: 1,
-            padding: "32px 38px 60px",
+            padding: isMobile ? "20px 16px 40px" : "32px 38px 60px",
           }}
         >
           <div
@@ -517,8 +529,9 @@ export default function ResumeAnalyzer() {
                   <div
                     style={{
                       display: "grid",
-                      gridTemplateColumns:
-                        "repeat(2, minmax(0, 1fr))",
+                      gridTemplateColumns: isMobile
+                        ? "1fr"
+                        : "repeat(2, minmax(0, 1fr))",
                       gap: "12px",
                     }}
                   >
@@ -867,8 +880,9 @@ export default function ResumeAnalyzer() {
                 <div
                   style={{
                     display: "grid",
-                    gridTemplateColumns:
-                      "minmax(0,1fr) 340px",
+                    gridTemplateColumns: isMobile
+                      ? "1fr"
+                      : "minmax(0,1fr) 340px",
                     gap: "24px",
                     alignItems: "start",
                   }}
@@ -899,7 +913,9 @@ export default function ResumeAnalyzer() {
                       style={{
                         borderRadius: "20px",
 
-                        padding: "58px 40px",
+                        padding: isMobile
+                          ? "28px 16px"
+                          : "58px 40px",
 
                         textAlign: "center",
 

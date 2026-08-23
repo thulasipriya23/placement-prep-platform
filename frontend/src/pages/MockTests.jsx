@@ -45,6 +45,26 @@ const topicColors = {
     bg: "rgba(52,211,153,0.08)",
     border: "rgba(52,211,153,0.2)",
   },
+  "Quantitative Aptitude": {
+    color: "#fbbf24",
+    bg: "rgba(251,191,36,0.08)",
+    border: "rgba(251,191,36,0.25)",
+  },
+  "Logical Reasoning": {
+    color: "#ec4899",
+    bg: "rgba(236,72,153,0.08)",
+    border: "rgba(236,72,153,0.25)",
+  },
+  "Verbal Ability": {
+    color: "#38bdf8",
+    bg: "rgba(56,189,248,0.08)",
+    border: "rgba(56,189,248,0.25)",
+  },
+  Aptitude: {
+    color: "#f59e0b",
+    bg: "rgba(245,158,11,0.08)",
+    border: "rgba(245,158,11,0.25)",
+  },
 };
 
 const diffConfig = {
@@ -68,6 +88,10 @@ const diffConfig = {
 // AI can generate questions for all of these topics.
 // Therefore we do not depend on existing DB question counts anymore.
 const availableTopics = [
+  "Quantitative Aptitude",
+  "Logical Reasoning",
+  "Verbal Ability",
+  "Aptitude",
   "JavaScript",
   "Data Structures",
   "Algorithms",
@@ -83,6 +107,16 @@ export default function MockTests() {
 
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== "undefined" && window.innerWidth <= 768
+  );
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const [selected, setSelected] = useState(null);
 
@@ -165,6 +199,8 @@ export default function MockTests() {
     }
   };
 
+
+
   return (
     <div
       style={{
@@ -178,9 +214,10 @@ export default function MockTests() {
       <div
         style={{
           flex: 1,
-          marginLeft: "256px",
+          marginLeft: isMobile ? "0" : "256px",
           display: "flex",
           flexDirection: "column",
+          transition: "margin-left 0.3s ease",
         }}
       >
         <Navbar title="Mock Tests" />
@@ -188,10 +225,10 @@ export default function MockTests() {
         <main
           style={{
             flex: 1,
-            padding: "32px",
+            padding: isMobile ? "20px 16px 40px" : "32px",
             display: "flex",
             flexDirection: "column",
-            gap: "28px",
+            gap: "24px",
           }}
         >
           {/* ================= HEADER ================= */}
@@ -225,7 +262,9 @@ export default function MockTests() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
+              gridTemplateColumns: isMobile
+                ? "1fr 1fr"
+                : "repeat(auto-fit, minmax(200px, 1fr))",
               gap: "16px",
             }}
           >
@@ -324,7 +363,7 @@ export default function MockTests() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "1fr 340px",
+              gridTemplateColumns: isMobile ? "1fr" : "1fr 340px",
               gap: "24px",
               alignItems: "start",
             }}
@@ -357,7 +396,9 @@ export default function MockTests() {
                 <div
                   style={{
                     display: "grid",
-                    gridTemplateColumns: "1fr 1fr",
+                    gridTemplateColumns: isMobile
+                      ? "1fr"
+                      : "repeat(auto-fit, minmax(260px, 1fr))",
                     gap: "14px",
                   }}
                 >

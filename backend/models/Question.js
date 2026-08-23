@@ -9,6 +9,7 @@ const questionSchema = new mongoose.Schema(
         "JavaScript", "Data Structures", "Algorithms",
         "System Design", "Database", "Operating Systems",
         "Computer Networks", "OOP Concepts",
+        "Aptitude", "Quantitative Aptitude", "Logical Reasoning", "Verbal Ability",
       ],
     },
     difficulty: {

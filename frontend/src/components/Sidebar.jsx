@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const navItems = [
@@ -60,6 +61,92 @@ const navItems = [
       >
         <polyline points="16 18 22 12 16 6" />
         <polyline points="8 6 2 12 8 18" />
+      </svg>
+    ),
+  },
+
+  {
+    path: "/core-cs",
+    label: "Core CS & Aptitude",
+    icon: (
+      <svg
+        width="19"
+        height="19"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+      </svg>
+    ),
+  },
+
+  {
+    path: "/project-analyzer",
+    label: "AI Project Defense",
+    icon: (
+      <svg
+        width="19"
+        height="19"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <polygon points="12 2 2 7 12 12 22 7 12 2" />
+        <polyline points="2 17 12 22 22 17" />
+        <polyline points="2 12 12 17 22 12" />
+      </svg>
+    ),
+  },
+
+  {
+    path: "/hr-prep",
+    label: "HR & Behavioral Prep",
+    icon: (
+      <svg
+        width="19"
+        height="19"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+        <circle cx="9" cy="7" r="4" />
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+      </svg>
+    ),
+  },
+
+
+
+  {
+    path: "/analytics",
+    label: "Placement Analytics",
+    icon: (
+      <svg
+        width="19"
+        height="19"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <line x1="18" y1="20" x2="18" y2="10" />
+        <line x1="12" y1="20" x2="12" y2="4" />
+        <line x1="6" y1="20" x2="6" y2="14" />
       </svg>
     ),
   },
@@ -128,25 +215,60 @@ const navItems = [
 
 export default function Sidebar() {
   const { pathname } = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== "undefined" && window.innerWidth <= 768
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      if (!mobile) setIsOpen(false);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    const handleToggle = () => setIsOpen((prev) => !prev);
+    window.addEventListener("toggle-sidebar", handleToggle);
+    return () => window.removeEventListener("toggle-sidebar", handleToggle);
+  }, []);
 
   return (
-    <aside
-      style={{
-        position: "fixed",
-        left: 0,
-        top: 0,
-        width: "256px",
-        height: "100vh",
+    <>
+      {isMobile && isOpen && (
+        <div
+          onClick={() => setIsOpen(false)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0, 0, 0, 0.75)",
+            backdropFilter: "blur(6px)",
+            zIndex: 140,
+          }}
+        />
+      )}
 
-        display: "flex",
-        flexDirection: "column",
-
-        background: "#0d0d1c",
-        borderRight: "1px solid #1e1e35",
-
-        zIndex: 50,
-      }}
-    >
+      <aside
+        style={{
+          position: "fixed",
+          left: 0,
+          top: 0,
+          width: "256px",
+          height: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          background: "#0d0d1c",
+          borderRight: "1px solid #1e1e35",
+          zIndex: 150,
+          transform: isMobile ? (isOpen ? "translateX(0)" : "translateX(-100%)") : "none",
+          transition: "transform 0.3s ease, visibility 0.3s ease",
+          overflow: "hidden",
+          visibility: isMobile && !isOpen ? "hidden" : "visible",
+        }}
+      >
       {/* ================= LOGO ================= */}
 
       <div
@@ -428,5 +550,6 @@ export default function Sidebar() {
         </div>
       </div>
     </aside>
+    </>
   );
 }

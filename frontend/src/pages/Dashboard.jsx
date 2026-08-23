@@ -7,6 +7,15 @@ export default function Dashboard() {
   const [dashboard, setDashboard] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== "undefined" && window.innerWidth <= 768
+  );
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     fetchDashboard();
@@ -171,6 +180,8 @@ export default function Dashboard() {
   // UI
   // ==========================================
 
+
+
   return (
     <div
       style={{
@@ -184,10 +195,11 @@ export default function Dashboard() {
       <div
         style={{
           flex: 1,
-          marginLeft: "256px",
+          marginLeft: isMobile ? "0" : "256px",
           display: "flex",
           flexDirection: "column",
           minWidth: 0,
+          transition: "margin-left 0.3s ease",
         }}
       >
         <Navbar title="Dashboard" />
@@ -195,7 +207,7 @@ export default function Dashboard() {
         <main
           style={{
             flex: 1,
-            padding: "32px 36px 50px",
+            padding: isMobile ? "20px 16px 40px" : "32px 36px 50px",
           }}
         >
           <div
@@ -421,8 +433,9 @@ export default function Dashboard() {
             <section
               style={{
                 display: "grid",
-                gridTemplateColumns:
-                  "repeat(3, minmax(0, 1fr))",
+                gridTemplateColumns: isMobile
+                  ? "1fr"
+                  : "repeat(auto-fit, minmax(280px, 1fr))",
                 gap: "18px",
               }}
             >

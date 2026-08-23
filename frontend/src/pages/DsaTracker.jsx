@@ -49,6 +49,16 @@ export default function DsaTracker() {
 
   const [error, setError] = useState("");
 
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== "undefined" && window.innerWidth <= 768
+  );
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   useEffect(() => {
     fetchProblems();
   }, []);
@@ -157,6 +167,8 @@ const filtered = sourceProblems.filter((p) => {
     ? Math.round((solved / problems.length) * 100)
     : 0;
 
+
+
   return (
     <div
       style={{
@@ -170,9 +182,10 @@ const filtered = sourceProblems.filter((p) => {
       <div
         style={{
           flex: 1,
-          marginLeft: "256px",
+          marginLeft: isMobile ? "0" : "256px",
           display: "flex",
           flexDirection: "column",
+          transition: "margin-left 0.3s ease",
         }}
       >
         <Navbar title="DSA Tracker" />
@@ -180,7 +193,7 @@ const filtered = sourceProblems.filter((p) => {
         <main
           style={{
             flex: 1,
-            padding: "32px",
+            padding: isMobile ? "20px 16px 40px" : "32px",
             display: "flex",
             flexDirection: "column",
             gap: "24px",
@@ -236,8 +249,10 @@ const filtered = sourceProblems.filter((p) => {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(4,1fr)",
-              gap: "16px",
+              gridTemplateColumns: isMobile
+                ? "1fr 1fr"
+                : "repeat(auto-fit, minmax(180px, 1fr))",
+              gap: "14px",
             }}
           >
             {[
@@ -342,7 +357,7 @@ const filtered = sourceProblems.filter((p) => {
                 border: "1px solid #2a2a4a",
                 borderRadius: "10px",
                 padding: "10px 14px",
-                width: "260px",
+                width: isMobile ? "100%" : "260px",
               }}
             />
 
@@ -453,132 +468,108 @@ const filtered = sourceProblems.filter((p) => {
                 Showing the complete 250-problem DSA sheet instead.
            </div>
             )}
-          {/* Table */}
-
-          <div
-            style={{
-              background: "#111120",
-              borderRadius: "14px",
-              overflow: "hidden",
-              border: "1px solid #1f2937",
-            }}
-          >
+          {/* Problems List Container */}
+          {loading ? (
             <div
               style={{
-                display: "grid",
-                gridTemplateColumns:
-                  "60px 1.5fr 180px 140px 120px",
-                padding: "16px 22px",
-                borderBottom: "1px solid #1f2937",
-                color: "#64748b",
-                fontWeight: "600",
+                padding: "60px",
+                textAlign: "center",
+                color: "#94a3b8",
+                background: "#111120",
+                borderRadius: "14px",
+                border: "1px solid #1f2937",
               }}
             >
-              <div>Status</div>
-              <div>Problem</div>
-              <div>Topic</div>
-              <div>Difficulty</div>
-              <div>Link</div>
+              Loading DSA Problems...
             </div>
-                        {loading ? (
-              <div
-                style={{
-                  padding: "60px",
-                  textAlign: "center",
-                  color: "#94a3b8",
-                }}
-              >
-                Loading DSA Problems...
-              </div>
-            ) : filtered.length === 0 ? (
-              <div
-                style={{
-                  padding: "60px",
-                  textAlign: "center",
-                  color: "#94a3b8",
-                }}
-              >
-                No problems found.
-              </div>
-            ) : (
-              filtered.map((problem) => (
+          ) : filtered.length === 0 ? (
+            <div
+              style={{
+                padding: "60px",
+                textAlign: "center",
+                color: "#94a3b8",
+                background: "#111120",
+                borderRadius: "14px",
+                border: "1px solid #1f2937",
+              }}
+            >
+              No problems found.
+            </div>
+          ) : isMobile ? (
+            /* ================= MOBILE CARD LIST ================= */
+            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+              {filtered.map((problem) => (
                 <div
                   key={problem._id}
                   style={{
-                    display: "grid",
-                    gridTemplateColumns:
-                      "60px 1.5fr 180px 140px 120px",
-                    padding: "18px 22px",
-                    borderBottom: "1px solid #1f2937",
-                    alignItems: "center",
-                    background: problem.solved
-                      ? "rgba(16,185,129,0.05)"
-                      : "transparent",
+                    background: problem.solved ? "rgba(16,185,129,0.06)" : "#111120",
+                    border: `1px solid ${problem.solved ? "rgba(16,185,129,0.25)" : "#1f2937"}`,
+                    borderRadius: "14px",
+                    padding: "16px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "10px",
                   }}
                 >
-                  {/* Checkbox */}
-
-                  <button
-                    onClick={() => toggleStatus(problem._id)}
-                    style={{
-                      width: "24px",
-                      height: "24px",
-                      borderRadius: "50%",
-                      border: `2px solid ${
-                        problem.solved
-                          ? "#10b981"
-                          : "#475569"
-                      }`,
-                      background: problem.solved
-                        ? "#10b981"
-                        : "transparent",
-                      color: "white",
-                      cursor: "pointer",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {problem.solved ? "✓" : ""}
-                  </button>
-
-                  {/* Problem */}
-
-                  <div>
-                    <div
+                  <div style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
+                    <button
+                      onClick={() => toggleStatus(problem._id)}
                       style={{
-                        color: problem.solved
-                          ? "#64748b"
-                          : "#fff",
-                        textDecoration: problem.solved
-                          ? "line-through"
-                          : "none",
-                        fontWeight: "600",
+                        width: "24px",
+                        height: "24px",
+                        borderRadius: "50%",
+                        border: `2px solid ${problem.solved ? "#10b981" : "#475569"}`,
+                        background: problem.solved ? "#10b981" : "transparent",
+                        color: "white",
+                        cursor: "pointer",
+                        fontWeight: "bold",
+                        flexShrink: 0,
+                        marginTop: "2px",
                       }}
                     >
-                      {problem.title}
-                    </div>
+                      {problem.solved ? "✓" : ""}
+                    </button>
 
-                    {/* Companies */}
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div
+                        style={{
+                          color: problem.solved ? "#64748b" : "#fff",
+                          textDecoration: problem.solved ? "line-through" : "none",
+                          fontWeight: "700",
+                          fontSize: "15px",
+                          lineHeight: 1.3,
+                        }}
+                      >
+                        {problem.title}
+                      </div>
 
-                    {problem.companies &&
-                      problem.companies.length > 0 && (
-                        <div
+                      <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "8px", flexWrap: "wrap" }}>
+                        <span style={{ fontSize: "12px", color: "#94a3b8" }}>{problem.topic}</span>
+                        <span
                           style={{
-                            marginTop: "8px",
-                            display: "flex",
-                            flexWrap: "wrap",
-                            gap: "6px",
+                            padding: "3px 10px",
+                            borderRadius: "999px",
+                            background: diffStyle[problem.difficulty].bg,
+                            color: diffStyle[problem.difficulty].color,
+                            border: `1px solid ${diffStyle[problem.difficulty].border}`,
+                            fontSize: "11px",
+                            fontWeight: "600",
                           }}
                         >
+                          {problem.difficulty}
+                        </span>
+                      </div>
+
+                      {problem.companies && problem.companies.length > 0 && (
+                        <div style={{ marginTop: "8px", display: "flex", flexWrap: "wrap", gap: "6px" }}>
                           {problem.companies.map((company) => (
                             <span
                               key={company}
                               style={{
-                                background:
-                                  "rgba(99,102,241,0.12)",
+                                background: "rgba(99,102,241,0.12)",
                                 color: "#818cf8",
                                 fontSize: "11px",
-                                padding:
-                                  "3px 8px",
+                                padding: "2px 8px",
                                 borderRadius: "999px",
                               }}
                             >
@@ -587,19 +578,120 @@ const filtered = sourceProblems.filter((p) => {
                           ))}
                         </div>
                       )}
+                    </div>
+
+                    {problem.url && (
+                      <a
+                        href={problem.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{
+                          color: "#818cf8",
+                          textDecoration: "none",
+                          fontWeight: "700",
+                          fontSize: "13px",
+                          background: "rgba(99,102,241,0.12)",
+                          padding: "6px 12px",
+                          borderRadius: "8px",
+                          border: "1px solid rgba(99,102,241,0.25)",
+                          flexShrink: 0,
+                        }}
+                      >
+                        Solve →
+                      </a>
+                    )}
                   </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            /* ================= DESKTOP TABLE ================= */
+            <div
+              style={{
+                width: "100%",
+                background: "#111120",
+                borderRadius: "14px",
+                border: "1px solid #1f2937",
+                overflow: "hidden",
+              }}
+            >
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "60px 1.5fr 180px 140px 120px",
+                  padding: "16px 22px",
+                  borderBottom: "1px solid #1f2937",
+                  color: "#64748b",
+                  fontWeight: "600",
+                }}
+              >
+                <div>Status</div>
+                <div>Problem</div>
+                <div>Topic</div>
+                <div>Difficulty</div>
+                <div>Link</div>
+              </div>
 
-                  {/* Topic */}
-
-                  <span
+              {filtered.map((problem) => (
+                <div
+                  key={problem._id}
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "60px 1.5fr 180px 140px 120px",
+                    padding: "18px 22px",
+                    borderBottom: "1px solid #1f2937",
+                    alignItems: "center",
+                    background: problem.solved ? "rgba(16,185,129,0.05)" : "transparent",
+                  }}
+                >
+                  <button
+                    onClick={() => toggleStatus(problem._id)}
                     style={{
-                      color: "#cbd5e1",
+                      width: "24px",
+                      height: "24px",
+                      borderRadius: "50%",
+                      border: `2px solid ${problem.solved ? "#10b981" : "#475569"}`,
+                      background: problem.solved ? "#10b981" : "transparent",
+                      color: "white",
+                      cursor: "pointer",
+                      fontWeight: "bold",
                     }}
                   >
-                    {problem.topic}
-                  </span>
+                    {problem.solved ? "✓" : ""}
+                  </button>
 
-                  {/* Difficulty */}
+                  <div>
+                    <div
+                      style={{
+                        color: problem.solved ? "#64748b" : "#fff",
+                        textDecoration: problem.solved ? "line-through" : "none",
+                        fontWeight: "600",
+                      }}
+                    >
+                      {problem.title}
+                    </div>
+
+                    {problem.companies && problem.companies.length > 0 && (
+                      <div style={{ marginTop: "8px", display: "flex", flexWrap: "wrap", gap: "6px" }}>
+                        {problem.companies.map((company) => (
+                          <span
+                            key={company}
+                            style={{
+                              background: "rgba(99,102,241,0.12)",
+                              color: "#818cf8",
+                              fontSize: "11px",
+                              padding: "3px 8px",
+                              borderRadius: "999px",
+                            }}
+                          >
+                            {company}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  <span style={{ color: "#cbd5e1" }}>{problem.topic}</span>
 
                   <span
                     style={{
@@ -607,21 +699,15 @@ const filtered = sourceProblems.filter((p) => {
                       width: "fit-content",
                       padding: "5px 12px",
                       borderRadius: "999px",
-                      background:
-                        diffStyle[problem.difficulty].bg,
-                      color:
-                        diffStyle[problem.difficulty].color,
-                      border: `1px solid ${
-                        diffStyle[problem.difficulty].border
-                      }`,
+                      background: diffStyle[problem.difficulty].bg,
+                      color: diffStyle[problem.difficulty].color,
+                      border: `1px solid ${diffStyle[problem.difficulty].border}`,
                       fontSize: "12px",
                       fontWeight: "600",
                     }}
                   >
                     {problem.difficulty}
                   </span>
-
-                  {/* Link */}
 
                   {problem.url ? (
                     <a
@@ -637,18 +723,12 @@ const filtered = sourceProblems.filter((p) => {
                       Solve →
                     </a>
                   ) : (
-                    <span
-                      style={{
-                        color: "#475569",
-                      }}
-                    >
-                      —
-                    </span>
+                    <span style={{ color: "#475569" }}>—</span>
                   )}
                 </div>
-              ))
-            )}
-          </div>
+              ))}
+            </div>
+          )}
         </main>
       </div>
     </div>

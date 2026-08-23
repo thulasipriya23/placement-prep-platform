@@ -1,7 +1,11 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://placement-prep-platform-hhr2.onrender.com/api",
+  baseURL:
+    import.meta.env.VITE_API_URL ||
+    (typeof window !== "undefined" && window.location.hostname === "localhost"
+      ? "http://localhost:5000/api"
+      : "https://placement-prep-platform-hhr2.onrender.com/api"),
 });
 
 // Automatically attach token to every request

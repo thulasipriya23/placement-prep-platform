@@ -65,53 +65,90 @@ export default function Navbar({ title }) {
     navigate("/login");
   };
 
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== "undefined" && window.innerWidth <= 768
+  );
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <header
       style={{
-        height: "76px",
+        height: isMobile ? "62px" : "76px",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-
-        padding: "0 34px",
-
+        padding: isMobile ? "0 14px" : "0 34px",
         background: "rgba(13, 13, 28, 0.96)",
         borderBottom: "1px solid #1e1e35",
-
         backdropFilter: "blur(20px)",
         WebkitBackdropFilter: "blur(20px)",
-
         position: "sticky",
         top: 0,
         zIndex: 40,
       }}
     >
-      {/* ================= LEFT ================= */}
+      {/* ================= MOBILE MENU TOGGLE ================= */}
+      {isMobile && (
+        <button
+          type="button"
+          onClick={() => window.dispatchEvent(new CustomEvent("toggle-sidebar"))}
+          style={{
+            background: "linear-gradient(135deg, #6366f1, #4f46e5)",
+            color: "#ffffff",
+            border: "1px solid rgba(255,255,255,0.2)",
+            borderRadius: "10px",
+            padding: "6px 12px",
+            fontSize: "13px",
+            fontWeight: "750",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            gap: "6px",
+            flexShrink: 0,
+            boxShadow: "0 2px 8px rgba(99,102,241,0.35)",
+          }}
+        >
+          ☰ Menu
+        </button>
+      )}
 
-      <div>
+      {/* ================= TITLE ================= */}
+
+      <div style={{ flex: 1, minWidth: 0, margin: isMobile ? "0 10px" : 0 }}>
         <h1
           style={{
-            fontSize: "21px",
+            fontSize: isMobile ? "15px" : "21px",
             fontWeight: 750,
             color: "#f8fafc",
             margin: 0,
             letterSpacing: "-0.4px",
             lineHeight: 1.2,
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            textAlign: isMobile ? "center" : "left",
           }}
         >
           {title}
         </h1>
 
-        <p
-          style={{
-            fontSize: "13px",
-            color: "#64748b",
-            margin: "5px 0 0",
-            fontWeight: 450,
-          }}
-        >
-          {today}
-        </p>
+        {!isMobile && (
+          <p
+            style={{
+              fontSize: "13px",
+              color: "#64748b",
+              margin: "5px 0 0",
+              fontWeight: 450,
+            }}
+          >
+            {today}
+          </p>
+        )}
       </div>
 
       {/* ================= RIGHT ================= */}
@@ -198,42 +235,42 @@ export default function Navbar({ title }) {
               {initials}
             </div>
 
-            {/* User Details */}
-
-            <div
-              style={{
-                textAlign: "left",
-                minWidth: "120px",
-              }}
-            >
+            {/* User Details (Desktop only) */}
+            {!isMobile && (
               <div
                 style={{
-                  color: "#f1f5f9",
-                  fontSize: "14px",
-                  fontWeight: 650,
-                  lineHeight: 1.3,
-
-                  maxWidth: "160px",
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
+                  textAlign: "left",
+                  minWidth: "120px",
                 }}
               >
-                {displayName}
-              </div>
+                <div
+                  style={{
+                    color: "#f1f5f9",
+                    fontSize: "14px",
+                    fontWeight: 650,
+                    lineHeight: 1.3,
+                    maxWidth: "160px",
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  {displayName}
+                </div>
 
-              <div
-                style={{
-                  color: "#818cf8",
-                  fontSize: "11.5px",
-                  fontWeight: 550,
-                  marginTop: "3px",
-                  lineHeight: 1.2,
-                }}
-              >
-                My Account
+                <div
+                  style={{
+                    color: "#818cf8",
+                    fontSize: "11.5px",
+                    fontWeight: 550,
+                    marginTop: "3px",
+                    lineHeight: 1.2,
+                  }}
+                >
+                  My Account
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Arrow */}
 
@@ -410,67 +447,55 @@ export default function Navbar({ title }) {
           )}
         </div>
 
-        {/* Divider */}
-
-        <div
-          style={{
-            height: "34px",
-            width: "1px",
-            background: "#25253b",
-          }}
-        />
+        {/* Divider (Desktop only) */}
+        {!isMobile && (
+          <div
+            style={{
+              height: "34px",
+              width: "1px",
+              background: "#25253b",
+            }}
+          />
+        )}
 
         {/* ================= LOGOUT ================= */}
-
         <button
           type="button"
           onClick={handleLogout}
           style={{
-            height: "42px",
-
+            height: isMobile ? "36px" : "42px",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            gap: "8px",
-
-            padding: "0 16px",
-
+            gap: "6px",
+            padding: isMobile ? "0 10px" : "0 16px",
             borderRadius: "10px",
-
             background: "rgba(255,255,255,0.015)",
-
             border: "1px solid #25253b",
-
             color: "#94a3b8",
-
             fontSize: "13px",
             fontWeight: 600,
-
             cursor: "pointer",
-
             transition: "all 0.2s ease",
+            flexShrink: 0,
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.background =
               "rgba(244,63,94,0.08)";
-
             e.currentTarget.style.borderColor =
               "rgba(244,63,94,0.28)";
-
             e.currentTarget.style.color = "#fda4af";
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.background =
               "rgba(255,255,255,0.015)";
-
             e.currentTarget.style.borderColor = "#25253b";
-
             e.currentTarget.style.color = "#94a3b8";
           }}
         >
           <svg
-            width="17"
-            height="17"
+            width="16"
+            height="16"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -483,7 +508,7 @@ export default function Navbar({ title }) {
             <line x1="21" y1="12" x2="9" y2="12" />
           </svg>
 
-          Logout
+          {!isMobile && "Logout"}
         </button>
       </div>
     </header>

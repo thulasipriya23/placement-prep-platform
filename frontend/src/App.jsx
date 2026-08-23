@@ -10,6 +10,11 @@ import DsaTracker from "./pages/DsaTracker";
 import MockTests from "./pages/MockTests";
 import TestScreen from "./pages/TestScreen";
 import CompanyDNA from "./pages/CompanyDNA";
+import CoreCS from "./pages/CoreCS";
+import ProjectAnalyzer from "./pages/ProjectAnalyzer";
+import HRPrep from "./pages/HRPrep";
+
+import PlacementAnalytics from "./pages/PlacementAnalytics";
 import ResumeAnalyzer from "./pages/ResumeAnalyzer";
 import InterviewSimulator from "./pages/InterviewSimulator";
 
@@ -111,6 +116,48 @@ function App() {
         element={
           <ProtectedRoute>
             <CompanyDNA />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Core CS & Aptitude */}
+      <Route
+        path="/core-cs"
+        element={
+          <ProtectedRoute>
+            <CoreCS />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* AI Project Defense */}
+      <Route
+        path="/project-analyzer"
+        element={
+          <ProtectedRoute>
+            <ProjectAnalyzer />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* HR & Behavioral Prep */}
+      <Route
+        path="/hr-prep"
+        element={
+          <ProtectedRoute>
+            <HRPrep />
+          </ProtectedRoute>
+        }
+      />
+
+
+
+      {/* Placement Analytics */}
+      <Route
+        path="/analytics"
+        element={
+          <ProtectedRoute>
+            <PlacementAnalytics />
           </ProtectedRoute>
         }
       />

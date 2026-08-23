@@ -117,6 +117,10 @@ const generateAITest = async (req, res) => {
       "Operating Systems",
       "Computer Networks",
       "OOP Concepts",
+      "Aptitude",
+      "Quantitative Aptitude",
+      "Logical Reasoning",
+      "Verbal Ability",
     ];
 
     const allowedDifficulties = [

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import API from "../services/api";
@@ -92,6 +92,16 @@ export default function CompanyDNA() {
 
   const [preparationDays, setPreparationDays] =
     useState(30);
+
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== "undefined" && window.innerWidth <= 768
+  );
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -222,6 +232,8 @@ export default function CompanyDNA() {
     difficultyConfig[plan?.difficulty] ||
     difficultyConfig.Medium;
 
+
+
   return (
     <div
       style={{
@@ -235,9 +247,10 @@ export default function CompanyDNA() {
       <div
         style={{
           flex: 1,
-          marginLeft: "256px",
+          marginLeft: isMobile ? "0" : "256px",
           display: "flex",
           flexDirection: "column",
+          transition: "margin-left 0.3s ease",
         }}
       >
         <Navbar title="Company Prep" />
@@ -245,7 +258,7 @@ export default function CompanyDNA() {
         <main
           style={{
             flex: 1,
-            padding: "30px 34px 60px",
+            padding: isMobile ? "20px 16px 40px" : "30px 34px 60px",
             display: "flex",
             flexDirection: "column",
             gap: "24px",
@@ -342,8 +355,9 @@ export default function CompanyDNA() {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns:
-                  "repeat(3, minmax(0, 1fr))",
+                gridTemplateColumns: isMobile
+                  ? "1fr"
+                  : "repeat(auto-fit, minmax(260px, 1fr))",
                 gap: "16px",
               }}
             >

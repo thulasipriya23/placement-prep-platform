@@ -1,4 +1,10 @@
 // ==========================================
+// FORCE DNS SERVERS FOR MONGODB ATLAS
+// ==========================================
+const dns = require("dns");
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
+
+// ==========================================
 // LOAD ENVIRONMENT VARIABLES FIRST
 // ==========================================
 
@@ -39,6 +45,11 @@ const aiRoutes = require("./routes/aiRoutes");
 
 // Company Prep
 const companyPrepRoutes = require("./routes/companyPrepRoutes");
+const coreCSRoutes = require("./routes/coreCSRoutes");
+const projectAnalyzerRoutes = require("./routes/projectAnalyzerRoutes");
+const hrPrepRoutes = require("./routes/hrPrepRoutes");
+const revisionRoutes = require("./routes/revisionRoutes");
+const analyticsRoutes = require("./routes/analyticsRoutes");
 
 // ==========================================
 // CONNECT DATABASE
@@ -85,6 +96,21 @@ app.use("/api/ai", aiRoutes);
 
 // Company Prep
 app.use("/api/company-prep", companyPrepRoutes);
+
+// Core CS & Aptitude Hub
+app.use("/api/core-cs", coreCSRoutes);
+
+// Project Analyzer
+app.use("/api/project-analyzer", projectAnalyzerRoutes);
+
+// HR Prep & Behavioral Trainer
+app.use("/api/hr-prep", hrPrepRoutes);
+
+// Revision Vault
+app.use("/api/revision", revisionRoutes);
+
+// Placement Analytics
+app.use("/api/analytics", analyticsRoutes);
 
 // ==========================================
 // TEST ROUTE

@@ -21,7 +21,7 @@ const startInterview = async (req, res) => {
     } = req.body;
 
     const completion = await groq.chat.completions.create({
-      model: "llama-3.3-70b-versatile",
+      model: "groq/compound-mini",
 
       messages: [
         {
@@ -157,7 +157,7 @@ const respondToAnswer = async (req, res) => {
 
     const completion =
       await groq.chat.completions.create({
-        model: "llama-3.3-70b-versatile",
+        model: "groq/compound-mini",
 
         messages: [
           {
@@ -433,4 +433,5 @@ Return ONLY valid JSON with no extra text.
 module.exports = {
   startInterview,
   respondToAnswer,
+  respondToInterview: respondToAnswer,
 };
