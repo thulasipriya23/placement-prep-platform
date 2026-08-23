@@ -118,7 +118,7 @@ app.use("/api/analytics", analyticsRoutes);
 
 app.get("/api/message", (req, res) => {
   res.json({
-    message: "Hello Manoj, Backend Connected Successfully 🚀",
+    message: "Hello Thulasi Priya, Backend Connected Successfully 🚀",
   });
 });
 

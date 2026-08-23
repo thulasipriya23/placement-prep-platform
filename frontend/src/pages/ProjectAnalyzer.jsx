@@ -24,7 +24,7 @@ const ProjectAnalyzer = () => {
   const handleSampleProjectLoad = () => {
     setFormData({
       title: "PlacementPrep Platform",
-      githubUrl: "https://github.com/manojdharavath/placement-prep-platform",
+      githubUrl: "https://github.com/thulasipriya23/placement-prep-platform",
       techStack: "React.js, Node.js, Express, MongoDB, Groq AI SDK, JWT, Vite",
       description:
         "Full-stack placement readiness platform combining DSA tracking, mock assessment engine, ATS resume analysis, and real-time AI interview simulation.",

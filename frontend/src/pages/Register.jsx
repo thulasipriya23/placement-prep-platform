@@ -161,7 +161,7 @@ export default function Register() {
           <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
 
             {[
-              { label: "Full Name",       name: "name",     type: "text",     placeholder: "Manoj Kumar"        },
+              { label: "Full Name",       name: "name",     type: "text",     placeholder: "Thulasi Priya"      },
               { label: "Email Address",   name: "email",    type: "email",    placeholder: "you@example.com"    },
             ].map((field) => (
               <div key={field.name}>
