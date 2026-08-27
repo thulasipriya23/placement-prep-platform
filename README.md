@@ -171,4 +171,7 @@ Sensitive credentials such as database connection strings, JWT secrets, and API 
 
 ## Author
 
-**Thulasi Priya**
+**Bhukya Thulasi Priya**
+B.Tech- Computer Science and Engineering.
+
+s
