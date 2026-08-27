@@ -160,8 +160,7 @@ Sensitive credentials such as database connection strings, JWT secrets, and API 
 
 ## Live Demo
 
-[View PlacementPrep Live](
-placement-prep-platform-kulkvu0fn-manojdharavaths-projects.vercel.app)
+[View PlacementPrep Live](https://placement-prep-platform.vercel.app)
 ## Future Improvements
 
 - Forgot password and email verification
@@ -172,7 +171,4 @@ placement-prep-platform-kulkvu0fn-manojdharavaths-projects.vercel.app)
 
 ## Author
 
-**Dharavath Manoj**
-
-B.Tech – Electronics and Communication Engineering  
-Malaviya National Institute of Technology Jaipur
+**Thulasi Priya**
