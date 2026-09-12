@@ -1,5 +1,6 @@
 // ==========================================
 // FORCE DNS SERVERS FOR MONGODB ATLAS
+// Enhanced testAI endpoint to report GROQ_API_KEY status
 // ==========================================
 const dns = require("dns");
 dns.setServers(["8.8.8.8", "1.1.1.1"]);
