@@ -1,4 +1,29 @@
-# PlacementPrep – AI-Powered Placement Preparation Platform
+# 🚀 PlacementPrep – Full-Stack AI Placement Readiness Platform
+
+<p align="center">
+  <img src="https://img.shields.io/badge/React-19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React 19" />
+  <img src="https://img.shields.io/badge/Vite-6.0-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite 6.0" />
+  <img src="https://img.shields.io/badge/Node.js-Express-339933?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js Express" />
+  <img src="https://img.shields.io/badge/MongoDB-Database-47A248?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB" />
+  <br/>
+  <img src="https://img.shields.io/badge/Nodemailer-Gmail_SMTP-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Nodemailer" />
+  <img src="https://img.shields.io/badge/Groq_AI-Llama_3.3-F05A28?style=for-the-badge&logo=groq&logoColor=white" alt="Groq AI" />
+  <img src="https://img.shields.io/badge/Vercel-Frontend_Deployment-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel" />
+  <br/>
+  <img src="https://img.shields.io/badge/Render-Backend_Deployment-46E3B7?style=for-the-badge&logo=render&logoColor=white" alt="Render" />
+  <img src="https://img.shields.io/badge/License-MIT-blue?style=for-the-badge" alt="MIT License" />
+</p>
+
+<p align="center">
+  <b>An AI-powered campus placement preparation platform for engineering candidates.</b><br/>
+  Frontend deployed on Vercel, backend deployed on Render Web Services.
+</p>
+
+<p align="center">
+  <a href="https://placement-prep-platform-1dlz.onrender.com">Backend API Link</a>
+</p>
+
+---
 
 PlacementPrep is a full-stack web application designed to help students prepare for campus placements through a single integrated platform.
 
