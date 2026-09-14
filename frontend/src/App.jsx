@@ -1,3 +1,4 @@
+// Overhaul DSA Tracker UI aesthetics and mobile responsiveness
 import { useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
