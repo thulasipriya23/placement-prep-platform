@@ -20,7 +20,13 @@
 </p>
 
 <p align="center">
-  <a href="https://placement-prep-platform-1dlz.onrender.com">Backend API Link</a>
+  <a href="https://placement-prep-platform-beige.vercel.app" target="_blank">
+    <img src="https://img.shields.io/badge/🌐_Live_Demo-Visit_PlacementPrep-00C7B7?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo" />
+  </a>
+  &nbsp;&nbsp;
+  <a href="https://placement-prep-platform-1dlz.onrender.com" target="_blank">
+    <img src="https://img.shields.io/badge/⚡_Backend_API-Render_Live-46E3B7?style=for-the-badge&logo=render&logoColor=white" alt="Backend API" />
+  </a>
 </p>
 
 ---
@@ -183,9 +189,13 @@ npm run dev
 
 Sensitive credentials such as database connection strings, JWT secrets, and API keys are stored using environment variables and are not committed to the repository.
 
-## Live Demo
+## 🌐 Live Demo
 
-[View PlacementPrep Live](https://placement-prep-platform.vercel.app)
+- 🚀 **Live Platform**: [https://placement-prep-platform-beige.vercel.app](https://placement-prep-platform-beige.vercel.app)
+- ⚡ **Backend API**: [https://placement-prep-platform-1dlz.onrender.com](https://placement-prep-platform-1dlz.onrender.com)
+
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Visit_PlacementPrep-00C7B7?style=for-the-badge&logo=vercel&logoColor=white)](https://placement-prep-platform-beige.vercel.app)
+
 ## Future Improvements
 
 - Forgot password and email verification

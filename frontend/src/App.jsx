@@ -1,6 +1,7 @@
-// Overhaul DSA Tracker UI aesthetics and mobile responsiveness
+import { useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
+import API from "./services/api";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 import Login from "./pages/Login";
@@ -21,6 +22,11 @@ import InterviewSimulator from "./pages/InterviewSimulator";
 
 function App() {
   const { user, loading } = useAuth();
+
+  // Pre-warm the Render backend as soon as the user visits the website
+  useEffect(() => {
+    API.get("/message").catch(() => {});
+  }, []);
 
   // Wait until authentication state is checked
   if (loading) {

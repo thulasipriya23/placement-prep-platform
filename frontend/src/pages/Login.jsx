@@ -883,6 +883,20 @@ export default function Login() {
                 "Sign In"
               )}
             </button>
+
+            {loading && (
+              <div
+                style={{
+                  marginTop: "12px",
+                  textAlign: "center",
+                  fontSize: "12px",
+                  color: "#94a3b8",
+                  lineHeight: "1.4",
+                }}
+              >
+                ⏳ Connecting to cloud backend (takes ~30s on first load if waking up)...
+              </div>
+            )}
           </form>
 
           {/* Register */}
