@@ -117,6 +117,15 @@ app.use("/api/analytics", analyticsRoutes);
 // TEST ROUTE
 // ==========================================
 
+app.get("/", (req, res) => {
+  res.json({
+    status: "Online 🚀",
+    message: "PlacementPrep Backend API is running successfully!",
+    author: "Bhukya Thulasi Priya",
+    frontend: "https://placement-prep-platform-beige.vercel.app",
+  });
+});
+
 app.get("/api/message", (req, res) => {
   res.json({
     message: "Hello Thulasi Priya, Backend Connected Successfully 🚀",
